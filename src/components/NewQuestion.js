@@ -6,7 +6,7 @@ import {useHistory} from "react-router-dom/cjs/react-router-dom";
 
 
 
-function Question(props) {
+function NewQuestion(props) {
 
     const {authedUser, handleAddQuestion, type} = props;
     const [optionOne, setOptionOne] = useState("");
@@ -62,4 +62,4 @@ function mapStateToProps({authedUser}, {type}) {
 }
 
 export default connect(mapStateToProps, {handleAddQuestion})(
-    Question);
+    NewQuestion);

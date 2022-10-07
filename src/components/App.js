@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import {connect} from "react-redux";
+import React, {Fragment, useEffect} from "react";
+import {handleInitialData} from "../actions/shared";
+import {Route, Switch, withRouter} from "react-router-dom";
+import Login from "./Login";
+import Home from "./Home";
+import LeaderBoard from "./LeaderBoard";
+import NewQuestion from "./NewQuestion";
+import Navigation from "./Navigation";
+import {LoadingBar} from 'react-redux-loading-bar'
+import AnswerQuestion from "./AnswerQuestion";
+import {NotFound} from "./NotFound";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(props) {
+
+    const {authedUser, dispatch, loading} = props;
+
+    useEffect(() => {
+        dispatch(handleInitialData());
+
+    }, [])
+
+    return (
+        <div>
+            <LoadingBar/>
+            {
+                loading === true ? null :
+                    (
+                        authedUser === null ?
+                            (
+                                <Route render={() => (
+                                    <Login/>
+                                )}/>
+                            ) :
+                            (
+                                <Fragment>
+                                    <Navigation/>
+                                    <Switch>
+                                        <Route exact path={"/"}
+                                               component={Home}/>
+                                        <Route path={"/new-question"}
+                                               component={NewQuestion}/>
+                                        <Route path={"/leader-board"}
+                                               component={LeaderBoard}/>
+                                        <Route path={"/questions/:id"}
+                                               component={AnswerQuestion}/>
+                                        <Route component={NotFound}/>
+                                    </Switch>
+                                </Fragment>
+                            )
+                    )
+            }
+        </div>
+    );
 }
 
-export default App;
+function mapStateToProps({authedUser}) {
+    return {
+        authedUser,
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(App));
