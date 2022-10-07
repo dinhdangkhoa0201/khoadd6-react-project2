@@ -14,7 +14,7 @@ function Home(props) {
 
     const [type, setType] = useState(UNANSWERED);
 
-    const renderPanel = (list) => {
+    const renderPanel = (list, type) => {
         return list.map((e) => (
             <Card key={e.id} className={"mb-5"}>
                 <Card.Header>
@@ -28,9 +28,17 @@ function Home(props) {
                 </Card.Body>
                 <Card.Footer>
                     <Link to={`/questions/${e.id}`}>
-                        <Button type={"button"} className={"btn btn-success"}>
-                            Answer Question
-                        </Button>
+                        {
+                            type === UNANSWERED ? (
+                                <Button type={"button"} className={"btn btn-success"}>
+                                    Answer Question
+                                </Button>
+                            ) : (
+                                <Button type={"button"} className={"btn btn-primary"}>
+                                    View Result
+                                </Button>
+                            )
+                        }
                     </Link>
                 </Card.Footer>
             </Card>
@@ -45,12 +53,12 @@ function Home(props) {
                     <Tab title={UNANSWERED} eventKey={UNANSWERED}
                          className={"p-5"}>
                         {
-                            renderPanel(unAnsweredQuestion)
+                            renderPanel(unAnsweredQuestion, UNANSWERED)
                         }
                     </Tab>
                     <Tab title={ANSWERED} eventKey={ANSWERED} className={"p-5"}>
                         {
-                            renderPanel(answeredQuestion)
+                            renderPanel(answeredQuestion, ANSWERED)
                         }
                     </Tab>
                 </Tabs>
@@ -69,6 +77,7 @@ function mapStateToProps({authedUser, questions, users}) {
     const unAnsweredQuestion = Object.values(questions).filter(
         (question) => !answerKeys.includes(question.id)).sort(
         (a, b) => b.timestamp - a.timestamp);
+    console.log(answeredQuestion);
     return {
         answeredQuestion,
         unAnsweredQuestion

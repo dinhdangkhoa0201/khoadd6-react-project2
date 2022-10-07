@@ -10,10 +10,10 @@ const navLink = [
         path: "/",
         label: "Home",
     }, {
-        path: "/new-question",
+        path: "/new",
         label: "New Question",
     }, {
-        path: "/leader-board",
+        path: "/leaderboard",
         label: "Leader Board",
     },
 ]
@@ -42,7 +42,7 @@ function Navigation(props) {
     }
 
     return (
-        <Navbar>
+        <Navbar className={"mb-3"}>
             <Container>
                 <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
                 <Nav className={"navbar-collapse"} fill variant="tabs"

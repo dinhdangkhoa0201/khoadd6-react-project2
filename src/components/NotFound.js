@@ -1,13 +1,21 @@
 import React from "react";
-import {Alert, Container} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Alert, Button, Container} from "react-bootstrap";
+import {useHistory} from "react-router-dom/cjs/react-router-dom";
 
 export function NotFound() {
+
+    const history = useHistory();
+
     return (
         <Container>
             <Alert variant={"danger"}>
-                <h1>404 - Page Not Found.</h1>
-                <Link to={"/"}>Click here</Link> to go Home
+                <Alert.Heading>404 - Page Not Found</Alert.Heading>
+                <hr/>
+                <div className="d-flex justify-content-end">
+                    <Button variant="danger" onClick={() => history.push("/")}>
+                        Click here to go Home
+                    </Button>
+                </div>
             </Alert>
         </Container>
     )
