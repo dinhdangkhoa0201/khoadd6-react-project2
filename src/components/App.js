@@ -38,7 +38,7 @@ function App(props) {
                                     <Switch>
                                         <Route exact path={"/"}
                                                component={Home}/>
-                                        <Route path={"/new"}
+                                        <Route path={"/add"}
                                                component={NewQuestion}/>
                                         <Route path={"/leaderboard"}
                                                component={LeaderBoard}/>

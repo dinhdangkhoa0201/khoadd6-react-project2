@@ -68,7 +68,7 @@ function AnswerQuestion(props) {
                 <Card className={"mb-1"}>
                     <Card.Header>
                         <Card.Title>
-                            Option One: {countOptionOne} in {sum}
+                            {question.optionOne.text}: {countOptionOne} in {sum}
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
@@ -79,7 +79,7 @@ function AnswerQuestion(props) {
                 <Card>
                     <Card.Header>
                         <Card.Title>
-                            Option Two: {countOptionTwo} in {sum}
+                            {question.optionTwo.text}: {countOptionTwo} in {sum}
                         </Card.Title>
                     </Card.Header>
                     <Card.Body>
@@ -157,6 +157,7 @@ function AnswerQuestion(props) {
                             (
                                 <>
                                     <Button type={"button"}
+                                            disabled={!option}
                                             onClick={() => handleSubmit()}
                                             className={"btn btn-success"}>Submit</Button>
                                     {' '}

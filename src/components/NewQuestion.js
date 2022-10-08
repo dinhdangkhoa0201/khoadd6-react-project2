@@ -4,11 +4,9 @@ import {connect} from "react-redux";
 import {handleAddQuestion} from "../actions/questions";
 import {useHistory} from "react-router-dom/cjs/react-router-dom";
 
-
-
 function NewQuestion(props) {
 
-    const {authedUser, handleAddQuestion, type} = props;
+    const {authedUser, handleAddQuestion} = props;
     const [optionOne, setOptionOne] = useState("");
     const [optionTwo, setOptionTwo] = useState("");
     const history = useHistory();
@@ -46,6 +44,7 @@ function NewQuestion(props) {
                 </Card.Body>
                 <Card.Footer>
                     <Button type={"button"}
+                            disabled={!optionOne || !optionTwo}
                             onClick={() => handleSubmitNewQuestion()}
                             className={"btn btn-success"}>Save</Button>
                 </Card.Footer>
@@ -54,10 +53,9 @@ function NewQuestion(props) {
     )
 }
 
-function mapStateToProps({authedUser}, {type}) {
+function mapStateToProps({authedUser}) {
     return {
-        authedUser,
-        type
+        authedUser
     }
 }
 
